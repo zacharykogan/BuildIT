@@ -19,7 +19,7 @@ const requireOwnership = customErrors.requireOwnership
 // this is middleware that will remove blank fields from `req.body`, e.g.
 // { example: { title: '', text: 'foo' } } -> { example: { text: 'foo' } }
 const removeBlanks = require('../../lib/remove_blank_fields')
-const projects = require('../models/projects')
+
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `req.user`
@@ -58,14 +58,15 @@ router.get('/projects/:id', requireToken, (req, res, next) => {
 
 // CREATE
 // POST /project
-router.post('/project', requireToken, (req, res, next) => {
+router.post('/projects', requireToken, (req, res, next) => {
+  console.log(req.user.id)
+  console.log(req)
   // set owner of new example to be current user
   req.body.project.owner = req.user.id
-
   Project.create(req.body.project)
     // respond to succesful `create` with status 201 and JSON of new "example"
     .then(project => {
-      res.status(201).json({ example: project.toObject() })
+      res.status(201).json({ project: project.toObject() })
     })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
@@ -74,21 +75,21 @@ router.post('/project', requireToken, (req, res, next) => {
 })
 
 // UPDATE
-// PATCH /examples/5a7db6c74d55bc51bdf39793
-router.patch('/examples/:id', requireToken, removeBlanks, (req, res, next) => {
+// PATCH /project/5a7db6c74d55bc51bdf39793
+router.patch('/projects/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   delete req.body.example.owner
 
-  Example.findById(req.params.id)
+  Project.findById(req.params.id)
     .then(handle404)
-    .then(example => {
+    .then(project => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, example)
+      requireOwnership(req, project)
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      return example.updateOne(req.body.example)
+      return project.updateOne(req.body.example)
     })
     // if that succeeded, return 204 and no JSON
     .then(() => res.sendStatus(204))
@@ -97,15 +98,15 @@ router.patch('/examples/:id', requireToken, removeBlanks, (req, res, next) => {
 })
 
 // DESTROY
-// DELETE /examples/5a7db6c74d55bc51bdf39793
-router.delete('/examples/:id', requireToken, (req, res, next) => {
-  Example.findById(req.params.id)
+// DELETE /projects/5a7db6c74d55bc51bdf39793
+router.delete('/projects/:id', requireToken, (req, res, next) => {
+  Project.findById(req.params.id)
     .then(handle404)
-    .then(example => {
+    .then(project => {
       // throw an error if current user doesn't own `example`
-      requireOwnership(req, example)
+      requireOwnership(req, project)
       // delete the example ONLY IF the above didn't throw
-      example.deleteOne()
+      project.deleteOne()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
