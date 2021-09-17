@@ -23,6 +23,9 @@ const projectSchema = new mongoose.Schema({
     required: true
   },
   steps: [String],
+  published: {
+    type: Boolean
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
