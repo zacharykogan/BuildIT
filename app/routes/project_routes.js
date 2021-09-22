@@ -43,6 +43,23 @@ router.get('/projects', (req, res, next) => {
     .catch(next)
 })
 
+// SHOW USER's PROJECTS
+// GET /projects (by user)
+
+router.get('/my-projects', requireToken, (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  Project.find({ owner: req.user._id })
+    .then((projects) => {
+      // `projects` will be an array of Mongoose documents
+      // we want to convert each one to a POJO, so we use `.map` to
+      // apply `.toObject` to each one
+      return projects.map((project) => project.toObject())
+    })
+    // respond with status 200 and JSON of the projects
+    .then((projects) => res.status(200).json({ projects: projects }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
 // SHOW
 // GET /projects/:ID
 router.get('/projects/:id', (req, res, next) => {
