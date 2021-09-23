@@ -60,6 +60,7 @@ router.get('/my-projects', requireToken, (req, res, next) => {
     // if an error occurs, pass it to the handler
     .catch(next)
 })
+
 // SHOW
 // GET /projects/:ID
 router.get('/projects/:id', (req, res, next) => {
@@ -71,6 +72,17 @@ router.get('/projects/:id', (req, res, next) => {
     // if an error occurs, pass it to the handler
     .catch(next)
 })
+// SHOW USERs PROJECT
+router.get('/my-projects/:id', (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  Project.findById(req.params.id)
+    .then(handle404)
+    // if `findById` is succesful, respond with 200 and "project" JSON
+    .then((project) => res.status(200).json({ project: project.toObject() }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+// GET /projects/:ID
 
 // CREATE
 // POST /project
