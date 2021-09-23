@@ -17,14 +17,8 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tools: {
-    type: String,
-    required: true
-  },
-  materials: {
-    type: String,
-    required: true
-  },
+  tools: [String],
+  materials: [String],
   steps: [String],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
