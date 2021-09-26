@@ -9,8 +9,8 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: [String],
-  image: [String],
+  description: String,
+  image: String,
   tools: [String],
   materials: [String],
   steps: [String],

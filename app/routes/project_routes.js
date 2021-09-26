@@ -140,4 +140,19 @@ router.delete('/project/:id', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// //  MASTER DELETE
+// router.delete('/project/:id', (req, res, next) => {
+//   Project.findById(req.params.id)
+//     .then(handle404)
+//     .then((project) => {
+//       // throw an error if current user doesn't own `project`
+//       // delete the project ONLY IF the above didn't throw
+//       project.deleteOne()
+//     })
+//     // send back 204 and no content if the deletion succeeded
+//     .then(() => res.sendStatus(204))
+//     // if an error occurs, pass it to the handler
+//     .catch(next)
+// })
+
 module.exports = router
