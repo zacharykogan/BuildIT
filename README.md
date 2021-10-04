@@ -25,7 +25,7 @@ Installation:
 Fork and clone repository.
 Install dependencies with npm install.
 Checkout to new branch.
-Run npm start to start local environment.
+Run nodemon start to start local server.
 ___
 Technologies Used:
 
