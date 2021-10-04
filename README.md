@@ -16,11 +16,17 @@ There are countless fantastic instructional videos on YouTube on how to make vir
 With BuildIt, you can view projects and see all the necessary materials and tools you need. You can then follow step by step instructions to create your own amazing stuff - from bird feeders to furniture. 
 
 BuidIt helps you create amazing things with your hands by following simple, step-by-step instructions. Build existing projects or create and share your own with the world! Let's build something, together.
-----
+___
 The site was created using React.js and Stripe.js as a project for General Assembly's Software Engineering Intensive in September 2021
 
 ---
+Installation:
 
+Fork and clone repository.
+Install dependencies with npm install.
+Checkout to new branch.
+Run npm start to start local environment.
+___
 Technologies Used:
 
 JavaScript
@@ -59,11 +65,8 @@ Authenticated Routes:
 
 ---
 
-Wireframes
+ERD
 
-![BuildIt](https://i.ibb.co/zJ7LXJs/Wireframe-1.jpg)
+![BuildIt](https://i.ibb.co/Tk9BhgX/ERD.jpg)
 
-![BuildIt](https://i.ibb.co/T1LTNm8/Wireframe-2.jpg)
-
-![BuildIt](https://i.ibb.co/ngwHtWt/Wireframe-3.jpg)
 ---
